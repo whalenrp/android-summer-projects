@@ -1,0 +1,15 @@
+Project 1 - File Browser
+
+This project is intended to introduce intents, activities, and indirectly
+the UNIX filestructure. 
+
+Requirements:
+1) Folders must be visually distinguishable from files. 
+2) By tapping on a folder, the underlying ArrayList should be modified to 
+reflect the contents of the selected directory.
+3) The back button must be overriden to take the user up a directory, and out
+of the application if the user is at the root directory.
+4) When the user clicks on a file, an intent to start a new activity with the 
+appropriate applications should launch. At the current moment, this project 
+launches only text files since the emulator doesn't come with media files on it.
+
