@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+      android:id="@+id/label"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/instructions"/>
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label"
+        android:inputType="numberDecimal"/>
+    <RadioGroup
+            android:id="@+id/choice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/number"
+            android:gravity="center_horizontal">
+        <RadioButton
+            android:id="@+id/rock"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Rock"
+            />
+        <RadioButton
+            android:id="@+id/paper"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Paper"/>
+        <RadioButton
+            android:id="@+id/scissors"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Scissors"/>
+    </RadioGroup>
+    <Button
+        android:text="Send to Challenger!"
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>
+
