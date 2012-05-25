@@ -2,7 +2,6 @@ package com.example;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.opengl.ETC1;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
@@ -50,6 +49,7 @@ public class SmsGame extends Activity
                     sendSMS(phoneNo, data);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Please choose your weapon and opponent", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
             }
