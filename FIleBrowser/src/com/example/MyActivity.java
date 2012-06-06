@@ -70,14 +70,11 @@ public class MyActivity extends ListActivity
         public View getView(int position, View convertView, ViewGroup parent){
             View row = super.getView(position, convertView, parent);
             if (curDir.list()!=null){
-                row = super.getView(position,convertView,parent);
                 TextView textView = (TextView)row.findViewById(R.id.label);
                 File current_file = new File(curDir, (String)getListAdapter().getItem(position));
                 if (current_file.isDirectory()){
                     textView.setTextColor(Color.CYAN);
                 }
-            }else{
-
             }
             return row;
         }
