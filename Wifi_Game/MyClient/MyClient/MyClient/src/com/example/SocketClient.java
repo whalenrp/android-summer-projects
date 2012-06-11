@@ -19,7 +19,7 @@ public class SocketClient extends Activity
     private PrintStream output;
     private Socket socket;
     private String serverIpAddress = "129.59.69.68";
-    private static final int REDIRECTED_SERVERPORT = 5567;
+    private static final int REDIRECTED_SERVERPORT = 5678;
 
     /** Called when the activity is first created. */
     @Override
@@ -44,7 +44,7 @@ public class SocketClient extends Activity
             public void onClick(View view) {
                 try{
                     output.println(et.getText().toString());
-                    textView.setText(textView.getText().toString()
+                    textView.setText(textView.getText().toString() + "\n"
                             + et.getText().toString() + "\n" + input.readLine());
                 }catch(IOException e){
                     e.printStackTrace();
