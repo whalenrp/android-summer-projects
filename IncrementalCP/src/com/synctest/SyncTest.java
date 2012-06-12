@@ -1,7 +1,6 @@
 package com.synctest;
 
 import android.app.ListActivity;
-import android.widget.ListView;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -13,15 +12,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.content.Loader;
 import android.widget.SimpleCursorAdapter;
+import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract;
 import android.app.LoaderManager;
 
 public class SyncTest extends ListActivity 
 	implements LoaderManager.LoaderCallbacks<Cursor>
 {
-	private Cursor mData;
 	private String[] projection;
-	private String nameField = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY;
+	private String numberField = ContactsContract.CommonDataKinds.Phone.NUMBER;
+	private String nameField = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
 	private SimpleCursorAdapter mAdapter;
 	
     /** Called when the activity is first created. */
@@ -31,9 +31,16 @@ public class SyncTest extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		projection = new String[]{
+			ContactsContract.CommonDataKinds.Phone._ID, 
+			ContactsContract.CommonDataKinds.Phone.NUMBER, 
+			ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, 
+			};
+
 		//	retrieveData();
 		mAdapter = new SimpleCursorAdapter(this, R.layout.rowlayout, null, 
-			new String[]{nameField}, new int[]{R.id.name}, 0);
+			new String[]{nameField, numberField}, 
+			new int[]{R.id.name, R.id.number}, 0);
 		setListAdapter(mAdapter);
 
 		getLoaderManager().initLoader(0, null, this);
@@ -68,8 +75,12 @@ public class SyncTest extends ListActivity
 
 	// Creates a CursorLoader that will monitor the data
 	public Loader<Cursor> onCreateLoader(int id, Bundle args){
-		return new CursorLoader(this, ContactsContract.Contacts.CONTENT_URI,
-			projection, null, null, nameField);
+		return new CursorLoader(this, 
+			ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+			projection, 
+			null, 
+			null, 
+			nameField);
 	}
 	
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data){
