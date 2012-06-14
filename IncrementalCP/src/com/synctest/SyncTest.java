@@ -1,27 +1,27 @@
 package com.synctest;
 
 import android.app.ListActivity;
+import android.app.LoaderManager;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.os.Bundle;
+import android.content.ContentValues;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.content.Loader;
 import android.widget.SimpleCursorAdapter;
-import android.provider.ContactsContract.CommonDataKinds;
-import android.provider.ContactsContract;
-import android.app.LoaderManager;
+import android.util.Log;
 
 public class SyncTest extends ListActivity 
 	implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private String[] projection;
-	private String numberField = ContactsContract.CommonDataKinds.Phone.NUMBER;
-	private String nameField = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
+	private String titleField = TestProvider.Contract.TITLE;
+	private String diffField = TestProvider.Contract.DIFFICULTY;
 	private SimpleCursorAdapter mAdapter;
 	
     /** Called when the activity is first created. */
@@ -32,14 +32,13 @@ public class SyncTest extends ListActivity
         setContentView(R.layout.main);
 
 		projection = new String[]{
-			ContactsContract.CommonDataKinds.Phone._ID, 
-			ContactsContract.CommonDataKinds.Phone.NUMBER, 
-			ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, 
-			};
+			TestProvider.Contract._ID,
+			TestProvider.Contract.TITLE,
+			TestProvider.Contract.DIFFICULTY,
+		};
 
-		//	retrieveData();
 		mAdapter = new SimpleCursorAdapter(this, R.layout.rowlayout, null, 
-			new String[]{nameField, numberField}, 
+			new String[]{titleField, diffField}, 
 			new int[]{R.id.name, R.id.number}, 0);
 		setListAdapter(mAdapter);
 
@@ -63,9 +62,9 @@ public class SyncTest extends ListActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch (item.getItemId()){
-			case R.id.addContact:
+			case R.id.addGame:
 				// Start new activity to add new contact
-				Intent intent = new Intent(this, ContactAdder.class);
+				Intent intent = new Intent(this, GameAdder.class);
 				startActivity(intent);
 			default:
 				return super.onOptionsItemSelected(item);
@@ -76,11 +75,11 @@ public class SyncTest extends ListActivity
 	// Creates a CursorLoader that will monitor the data
 	public Loader<Cursor> onCreateLoader(int id, Bundle args){
 		return new CursorLoader(this, 
-			ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+			TestProvider.Contract.CONTENT_URI,
 			projection, 
 			null, 
 			null, 
-			nameField);
+			null);
 	}
 	
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data){
